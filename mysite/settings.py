@@ -129,3 +129,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Tag
 TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_LIMIT = 50
+
+# Disqus
+DISQUS_SHORTNAME = "pydjango-web-programming-1wnns7hqpx"
+DISQUS_MY_DOMAIN = "http://127.0.0.1:8000"  # except '/'
