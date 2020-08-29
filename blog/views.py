@@ -7,8 +7,11 @@ from django.views.generic.dates import (
 )
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 from django.conf import settings
+from django.views.generic import FormView
+from django.db.models import Q
 
 from blog.models import Post
+from blog.forms import PostSearchForm
 
 
 class PostLV(ListView):
@@ -73,3 +76,23 @@ class TaggedObjectLV(ListView):
         context = super().get_context_data(**kwargs)
         context["tagname"] = self.kwargs["tag"]
         return context
+
+
+class SearchFormView(FormView):
+    form_class = PostSearchForm
+    template_name = "blog/post_search.html"
+
+    def form_valid(self, form):
+        search_word = form.cleaned_data["search_word"]
+        post_list = Post.objects.filter(
+            Q(title__icontains=search_word)
+            | Q(description__icontains=search_word)
+            | Q(content__icontains=search_word)
+        ).distinct()
+
+        context = {}
+        context["form"] = form
+        context["search_term"] = search_word
+        context["object_list"] = post_list
+
+        return render(self.request, self.template_name, context)
