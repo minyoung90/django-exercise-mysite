@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bookmark.apps.BookmarkConfig",
     "blog.apps.BlogConfig",
+    "photo.apps.PhotoConfig",
     "taggit.apps.TaggitAppConfig",
     "taggit_templatetags2",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -125,6 +127,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Login
+
+# LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL= "/"
 
 # Tag
 TAGGIT_CASE_INSENSITIVE = True
